@@ -1,0 +1,182 @@
+/* globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .sidebar-transition {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Container width options */
+  .container-full {
+    width: 100%;
+  }
+  
+  .container-boxed {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  /* Border radius options */
+  .radius-square * {
+    border-radius: 0 !important;
+  }
+  
+  .radius-rounded .rounded-lg,
+  .radius-rounded .rounded-md {
+    border-radius: 0.5rem;
+  }
+  
+  .radius-more .rounded-lg,
+  .radius-more .rounded-md {
+    border-radius: 1rem;
+  }
+  
+  .radius-more .rounded-full {
+    border-radius: 9999px;
+  }
+
+  /* Animation pour le bouton customize */
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .animate-spin {
+    animation: spin 2s linear infinite;
+  }
+
+  /* Styles pour le Kanban - Drag & Drop */
+  .drag-over {
+    @apply bg-purple-50 dark:bg-purple-900/20 border-purple-300 dark:border-purple-600;
+  }
+  
+  .dragging {
+    @apply opacity-50 transform rotate-2;
+  }
+
+  /* Styles pour la page Email */
+  .email-priority-high {
+    @apply border-l-red-500 bg-red-50 dark:bg-red-900/10;
+  }
+  
+  .email-priority-medium {
+    @apply border-l-yellow-500 bg-yellow-50 dark:bg-yellow-900/10;
+  }
+  
+  .email-priority-low {
+    @apply border-l-green-500 bg-green-50 dark:bg-green-900/10;
+  }
+
+  /* Responsive utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Profile page tabs */
+  .profile-tab-active {
+    @apply border-purple-500 text-purple-600 dark:text-purple-400;
+  }
+  
+  .profile-tab-inactive {
+    @apply border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300;
+  }
+
+  /* Smooth transitions pour tous les éléments */
+  * {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+  .dark-auto {
+    @apply dark;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .kanban-board {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .email-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .email-sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+/* Scrollbar styling pour dark mode */
+.dark ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgb(31 41 55);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(75 85 99);
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgb(107 114 128);
+}
+
+/* Light mode scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(243 244 246);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(209 213 219);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(156 163 175);
+}
+
+
