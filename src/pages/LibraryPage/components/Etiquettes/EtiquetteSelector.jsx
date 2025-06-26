@@ -1,3 +1,5 @@
+
+
 // src/pages/LibraryPage/components/Etiquettes/EtiquetteSelector.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { useSharedEtiquettes } from './hooks/useSharedEtiquettes';
@@ -8,8 +10,13 @@ const EtiquetteSelector = ({
   isOpen, 
   onClose, 
   onToggle,
+  etiquettesHook,
   className = '' 
 }) => {
+  // Utiliser le hook passé en props ou créer une nouvelle instance si pas fourni
+  const defaultHook = useSharedEtiquettes();
+  const hook = etiquettesHook || defaultHook;
+  
   const {
     etiquettes,
     obtenirEtiquettesArticle,
@@ -17,7 +24,7 @@ const EtiquetteSelector = ({
     dissocierEtiquetteArticle,
     creerEtiquette,
     rechercherEtiquettes
-  } = useSharedEtiquettes();
+  } = hook;
 
   const [termesRecherche, setTermesRecherche] = useState('');
   const [etiquettesFiltrees, setEtiquettesFiltrees] = useState([]);

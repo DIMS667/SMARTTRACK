@@ -4,6 +4,7 @@ import Card from '@/components/common/Card';
 import NouveautesPage from './components/NouveautesPage/NouveautesPage';
 import FavorisPage from './components/FavorisPage/FavorisPage';
 import CommentairePage from './components/Commentaire/CommentairePage';
+import { RecherchePage } from './components/RecherchePage'; // Import ajouté
 import { 
   BookOpen, 
   Archive, 
@@ -116,8 +117,8 @@ function LibraryPage({ activeFilter = 'all' }) {
       return libraryItems;
     }
     
-    // Si c'est nouveautés, favoris ou commentaires, on affiche le composant séparé
-    if (currentFilter === 'nouveautes' || currentFilter === 'favorites' || currentFilter === 'commentaires') {
+    // Si c'est recherche, nouveautés, favoris ou commentaires, on affiche le composant séparé
+    if (currentFilter === 'recherche' || currentFilter === 'nouveautes' || currentFilter === 'favorites' || currentFilter === 'commentaires') {
       return null;
     }
     
@@ -147,6 +148,7 @@ function LibraryPage({ activeFilter = 'all' }) {
   const getFilterTitle = () => {
     const filterTitles = {
       'all': 'Tous les éléments',
+      'recherche': 'Recherche', // Ajouté
       'nouveautes': 'Nouveautés',
       'favorites': 'Favoris',
       'commentaires': 'Commentaires',
@@ -168,6 +170,17 @@ function LibraryPage({ activeFilter = 'all' }) {
   useEffect(() => {
     setCurrentFilter(activeFilter);
   }, [activeFilter]);
+
+  // Fonction pour gérer la navigation vers les étiquettes (pour RecherchePage)
+  const handleEtiquetteClick = (etiquette) => {
+    console.log('🏷️ Navigation vers étiquette depuis RecherchePage:', etiquette.nom);
+    // Vous pouvez ajouter ici la logique de navigation vers les étiquettes
+  };
+
+  // Si le filtre est recherche, afficher le composant RecherchePage
+  if (currentFilter === 'recherche') {
+    return <RecherchePage onEtiquetteClick={handleEtiquetteClick} />;
+  }
 
   // Si le filtre est nouveautés, afficher le composant séparé
   if (currentFilter === 'nouveautes') {

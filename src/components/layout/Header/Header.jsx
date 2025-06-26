@@ -1,6 +1,6 @@
 // Header.jsx - Version adaptée pour SMARTTRACK
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Bell, Menu, ChevronDown, Mail, User } from 'lucide-react';
+import { Search, Bell, Menu, ChevronDown, Mail, User, Settings } from 'lucide-react';
 import Button from '@/components/common/Button';
 import Avatar from '@/components/common/Avatar';
 import { useCustomizer } from '@/context/CustomizerContext';
@@ -28,10 +28,13 @@ function Header({ setSidebarOpen, onNavigate }) {
   }, [isProfileOpen]);
 
   const handleProfileClick = () => {
-    console.log('Page Profil en cours de développement pour SMARTTRACK');
     setIsProfileOpen(false);
-    // Optionnel : navigation vers profil quand il sera créé
-    // onNavigate && onNavigate('profile');
+    onNavigate && onNavigate('profile');
+  };
+
+  const handleSettingsClick = () => {
+    setIsProfileOpen(false);
+    onNavigate && onNavigate('settings');
   };
 
   const handleNotificationsClick = () => {
@@ -109,26 +112,18 @@ function Header({ setSidebarOpen, onNavigate }) {
                   >
                     <User className="w-4 h-4 mr-2" />
                     Mon Profil
-                    <span className="ml-auto text-xs bg-yellow-500 text-yellow-900 px-1 rounded">
-                      Bientôt
-                    </span>
                   </button>
                   
                   <button 
-                    onClick={() => {
-                      console.log('Page Paramètres en cours de développement');
-                      setIsProfileOpen(false);
-                    }}
+                    onClick={handleSettingsClick}
                     className={`flex items-center w-full text-left px-4 py-2 text-sm transition-colors duration-200 ${
                       isDark 
                         ? 'text-gray-300 hover:bg-gray-700' 
                         : 'text-gray-700 hover:bg-gray-100'
                     }`}
                   >
+                    <Settings className="w-4 h-4 mr-2" />
                     Paramètres
-                    <span className="ml-auto text-xs bg-yellow-500 text-yellow-900 px-1 rounded">
-                      Bientôt
-                    </span>
                   </button>
                   
                   <hr className={`my-1 ${isDark ? 'border-gray-600' : 'border-gray-200'}`} />

@@ -1,5 +1,5 @@
-//NouveautesPage.jsx
-import React from 'react';
+//NouveautesPage.jsx - Mis à jour avec navigation étiquettes
+import React, { useState } from 'react';
 import ArticleCard from './ArticleCard';
 import ArticleModal from './ArticleModal';
 import FeedsSidebar from './FeedsSidebar';
@@ -12,10 +12,15 @@ import { useArticles } from './hooks/useArticles';
 import { useFeeds } from './hooks/useFeeds';
 import { useFilters } from './hooks/useFilters';
 import { useModal } from './hooks/useModal';
+import { EtiquetteDetailPage } from '../Etiquettes'; // Import de la page étiquette
 
 const CATEGORIES = ["All", "Technology", "Science", "Society", "Economy", "Space", "Environment"];
 
 const NouveautesPage = () => {
+  // État pour la navigation étiquettes
+  const [currentView, setCurrentView] = useState('articles'); // 'articles' ou 'etiquette'
+  const [selectedEtiquette, setSelectedEtiquette] = useState(null);
+
   // Custom hooks
   const { 
     articles, 
@@ -63,6 +68,26 @@ const NouveautesPage = () => {
     }
   };
 
+  // Gestion de la navigation vers une étiquette
+  const handleEtiquetteClick = (etiquette) => {
+    console.log('🏷️ Navigation vers étiquette:', etiquette.nom);
+    setSelectedEtiquette(etiquette);
+    setCurrentView('etiquette');
+  };
+
+  // Retour à la vue articles
+  const handleBackToArticles = () => {
+    console.log('↩️ Retour à la vue articles');
+    setCurrentView('articles');
+    setSelectedEtiquette(null);
+  };
+
+  // Ouvrir un article depuis la page étiquette
+  const handleArticleClickFromEtiquette = (article) => {
+    console.log('📰 Ouverture article depuis étiquette:', article.title);
+    openArticle(article);
+  };
+
   // Fonction pour rendre l'article selon la vue sélectionnée
   const renderArticleByView = (article) => {
     const commonProps = {
@@ -104,6 +129,32 @@ const NouveautesPage = () => {
     }
   };
 
+  // Rendu conditionnel selon la vue actuelle
+  if (currentView === 'etiquette' && selectedEtiquette) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 overflow-auto">
+        <EtiquetteDetailPage
+          etiquetteId={selectedEtiquette.id}
+          onBack={handleBackToArticles}
+          onArticleClick={handleArticleClickFromEtiquette}
+        />
+        
+        {/* Modal d'article depuis la page étiquette */}
+        <ArticleModal
+          article={selectedArticle}
+          isOpen={isOpen}
+          onClose={closeArticle}
+          onToggleFavorite={toggleFavorite}
+          formatDate={formatDate}
+          articleNote={selectedArticle ? getArticleNote(selectedArticle.id) : ''}
+          onNoteChange={handleNoteChange}
+          onEtiquetteClick={handleEtiquetteClick} // Permettre navigation entre étiquettes
+        />
+      </div>
+    );
+  }
+
+  // Vue normale des articles
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
       {/* Panel des flux */}
@@ -212,6 +263,7 @@ const NouveautesPage = () => {
         formatDate={formatDate}
         articleNote={selectedArticle ? getArticleNote(selectedArticle.id) : ''}
         onNoteChange={handleNoteChange}
+        onEtiquetteClick={handleEtiquetteClick} // 🎯 Navigation vers étiquettes
       />
     </div>
   );

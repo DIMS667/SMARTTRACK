@@ -104,29 +104,14 @@ const NoteModal = ({ isOpen, onClose, onSave, existingNote = '' }) => {
   );
 };
 
-const ModalToolbar = ({ article, articleNote, onNoteChange }) => {
+const ModalToolbar = ({ article, articleNote, onNoteChange, etiquettesHook, etiquettesArticle }) => {
   const [showNoteModal, setShowNoteModal] = useState(false);
   const [showCommentModal, setShowCommentModal] = useState(false);
   const [showEtiquetteModal, setShowEtiquetteModal] = useState(false);
   const [showEtiquetteSelector, setShowEtiquetteSelector] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  // Hook pour obtenir les étiquettes de l'article
-  const { 
-    obtenirEtiquettesArticle, 
-    etiquettes,
-    articlesEtiquettes
-  } = useSharedEtiquettes();
-  const etiquettesArticle = article ? obtenirEtiquettesArticle(article.id) : [];
-
-  // Debug - à supprimer après résolution
-  console.log('🔍 DEBUG ModalToolbar:', {
-    article,
-    articleId: article?.id,
-    etiquettesArticle,
-    nombreEtiquettes: etiquettesArticle.length,
-    toutesEtiquettes: etiquettes,
-    articlesEtiquettes: articlesEtiquettes
-  });
+  // Utiliser le hook passé en props au lieu de créer une nouvelle instance
 
   const handleSaveNote = (note) => {
     onNoteChange(note);
@@ -153,6 +138,138 @@ const ModalToolbar = ({ article, articleNote, onNoteChange }) => {
     console.log('🏷️ CLIC MODAL ÉTIQUETTES !');
     setShowEtiquetteModal(true);
     setShowEtiquetteSelector(false);
+  };
+
+  const handleAudioToggle = () => {
+    setIsPlaying(!isPlaying);
+    if (!isPlaying) {
+      // Démarrer la lecture audio
+      console.log('🔊 Démarrage lecture audio de l\'article:', article.title);
+      // TODO: Implémenter la synthèse vocale
+      speakArticle(article);
+    } else {
+      // Arrêter la lecture audio
+      console.log('⏸️ Arrêt lecture audio');
+      // TODO: Arrêter la synthèse vocale
+      stopSpeaking();
+    }
+  };
+
+  const detectLanguage = (text) => {
+    // Mots indicateurs pour détection de langue
+    const frenchIndicators = ['le', 'la', 'les', 'de', 'du', 'des', 'un', 'une', 'et', 'est', 'dans', 'pour', 'avec', 'sur', 'par', 'ce', 'cette', 'ces', 'que', 'qui', 'à', 'où'];
+    const englishIndicators = ['the', 'and', 'of', 'to', 'a', 'in', 'for', 'is', 'on', 'that', 'by', 'this', 'with', 'i', 'you', 'it', 'not', 'or', 'be', 'are', 'from', 'at', 'as', 'your', 'all', 'can', 'had', 'her', 'was', 'one', 'our', 'have', 'an', 'they', 'which', 'she', 'do', 'how', 'if', 'will', 'up', 'other', 'about', 'out', 'many', 'time', 'very', 'when', 'much', 'new', 'would', 'there', 'each', 'so', 'these'];
+    
+    const words = text.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
+    let frenchScore = 0;
+    let englishScore = 0;
+    
+    words.forEach(word => {
+      if (frenchIndicators.includes(word)) frenchScore++;
+      if (englishIndicators.includes(word)) englishScore++;
+    });
+    
+    // Si on détecte plus de mots anglais, c'est probablement de l'anglais
+    if (englishScore > frenchScore) {
+      return 'en-US';
+    }
+    
+    // Par défaut, français
+    return 'fr-FR';
+  };
+
+  const speakArticle = (article) => {
+    // Fonction améliorée pour la synthèse vocale avec détection de langue
+    if ('speechSynthesis' in window) {
+      // Texte complet à lire
+      const fullText = `${article.title}. ${article.excerpt}`;
+      
+      // Détecter la langue du texte
+      const detectedLang = detectLanguage(fullText);
+      console.log('🌍 Langue détectée:', detectedLang);
+      
+      // Séparer le texte par phrases pour gérer les langues mixtes
+      const sentences = fullText.split(/[.!?]+/).filter(s => s.trim().length > 0);
+      
+      let currentIndex = 0;
+      
+      const speakNextSentence = () => {
+        if (currentIndex >= sentences.length) {
+          setIsPlaying(false);
+          return;
+        }
+        
+        const sentence = sentences[currentIndex].trim();
+        if (!sentence) {
+          currentIndex++;
+          speakNextSentence();
+          return;
+        }
+        
+        // Détecter la langue de chaque phrase
+        const sentenceLang = detectLanguage(sentence);
+        
+        const utterance = new SpeechSynthesisUtterance(sentence);
+        utterance.rate = 0.8;
+        utterance.pitch = 1;
+        utterance.volume = 0.8;
+        utterance.lang = sentenceLang;
+        
+        // Choisir une voix appropriée selon la langue
+        const voices = speechSynthesis.getVoices();
+        let selectedVoice = null;
+        
+        if (sentenceLang === 'en-US') {
+          selectedVoice = voices.find(voice => 
+            voice.lang.startsWith('en') && 
+            (voice.name.includes('Google') || voice.name.includes('Microsoft') || voice.default)
+          );
+        } else {
+          selectedVoice = voices.find(voice => 
+            voice.lang.startsWith('fr') && 
+            (voice.name.includes('Google') || voice.name.includes('Microsoft') || voice.default)
+          );
+        }
+        
+        if (selectedVoice) {
+          utterance.voice = selectedVoice;
+        }
+        
+        utterance.onend = () => {
+          currentIndex++;
+          // Petite pause entre les phrases
+          setTimeout(speakNextSentence, 200);
+        };
+        
+        utterance.onerror = (event) => {
+          console.error('❌ Erreur synthèse vocale:', event);
+          currentIndex++;
+          speakNextSentence();
+        };
+        
+        console.log(`🗣️ Lecture phrase ${currentIndex + 1}/${sentences.length} (${sentenceLang}):`, sentence.substring(0, 50) + '...');
+        speechSynthesis.speak(utterance);
+      };
+      
+      // Attendre que les voix soient chargées
+      if (speechSynthesis.getVoices().length === 0) {
+        speechSynthesis.onvoiceschanged = () => {
+          speakNextSentence();
+        };
+      } else {
+        speakNextSentence();
+      }
+    } else {
+      console.error('❌ Synthèse vocale non supportée');
+      alert('La synthèse vocale n\'est pas supportée par votre navigateur.');
+      setIsPlaying(false);
+    }
+  };
+
+  const stopSpeaking = () => {
+    if ('speechSynthesis' in window) {
+      speechSynthesis.cancel();
+    }
   };
 
   return (
@@ -225,6 +342,35 @@ const ModalToolbar = ({ article, articleNote, onNoteChange }) => {
                 </svg>
               </button>
 
+              {/* Bouton Lecture Audio */}
+              <button 
+                onClick={handleAudioToggle}
+                className={`p-2 rounded-lg transition-colors group ${
+                  isPlaying 
+                    ? 'text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20' 
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-green-600 dark:hover:text-green-400'
+                }`}
+                title={isPlaying ? "Arrêter la lecture" : "Écouter l'article"}
+              >
+                {isPlaying ? (
+                  // Icône pause
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                ) : (
+                  // Icône play/volume
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 14.142M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                  </svg>
+                )}
+                {/* Indicateur de lecture en cours */}
+                {isPlaying && (
+                  <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full flex items-center justify-center">
+                    <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+                  </span>
+                )}
+              </button>
+
               {/* Bouton Étiquettes */}
               <div className="relative">
                 <button 
@@ -255,6 +401,7 @@ const ModalToolbar = ({ article, articleNote, onNoteChange }) => {
                       isOpen={showEtiquetteSelector}
                       onClose={() => setShowEtiquetteSelector(false)}
                       onToggle={() => setShowEtiquetteSelector(!showEtiquetteSelector)}
+                      etiquettesHook={etiquettesHook}
                     />
                   </div>
                 )}
@@ -287,8 +434,8 @@ const ModalToolbar = ({ article, articleNote, onNoteChange }) => {
         </div>
       </div>
 
-      {/* Debug: État des modales */}
-      {console.log('🔍 Render final - showCommentModal:', showCommentModal)}
+      {/* Debug supprimé */}
+      {/* {console.log('🔍 Render final - showCommentModal:', showCommentModal)} */}
       
       {/* Modal de création de note */}
       <NoteModal
@@ -316,6 +463,7 @@ const ModalToolbar = ({ article, articleNote, onNoteChange }) => {
           setShowEtiquetteModal(false);
         }}
         article={article}
+        etiquettesHook={etiquettesHook}
       />
     </>
   );

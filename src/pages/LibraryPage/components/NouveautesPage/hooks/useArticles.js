@@ -1,3 +1,5 @@
+
+//useArticles.js
 import { useState } from 'react';
 import { useSharedFavorites } from '../../FavorisPage/hooks/useSharedFavorites';
 import defaultImage from '/src/assets/undraw_hot-air-balloon_6knx.svg';

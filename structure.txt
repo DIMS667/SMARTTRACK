@@ -1268,18 +1268,32 @@ C:.
 |   |       |   package.json
 |   |       |   README.md
 |   |       |   
-|   |       \---dist
-|   |           +---cjs
-|   |           |       index.cjs
-|   |           |       index.d.cts
-|   |           |       types.cts
-|   |           |       
-|   |           \---esm
-|   |                   index.d.ts
-|   |                   index.js
-|   |                   types.d.ts
-|   |                   types.ts
-|   |                   
+|   |       +---dist
+|   |       |   +---cjs
+|   |       |   |       index.cjs
+|   |       |   |       index.d.cts
+|   |       |   |       types.cts
+|   |       |   |       
+|   |       |   \---esm
+|   |       |           index.d.ts
+|   |       |           index.js
+|   |       |           types.d.ts
+|   |       |           types.ts
+|   |       |           
+|   |       \---node_modules
+|   |           \---@eslint
+|   |               \---core
+|   |                   |   LICENSE
+|   |                   |   package.json
+|   |                   |   README.md
+|   |                   |   
+|   |                   \---dist
+|   |                       +---cjs
+|   |                       |       types.d.cts
+|   |                       |       
+|   |                       \---esm
+|   |                               types.d.ts
+|   |                               
 |   +---@eslint-community
 |   |   +---eslint-utils
 |   |   |   |   index.d.mts
@@ -3427,9 +3441,9 @@ C:.
 |   |   |   |   |   report-translator.js
 |   |   |   |   |   rule-fixer.js
 |   |   |   |   |   rules.js
-|   |   |   |   |   safe-emitter.js
 |   |   |   |   |   source-code-fixer.js
 |   |   |   |   |   source-code-traverser.js
+|   |   |   |   |   source-code-visitor.js
 |   |   |   |   |   timing.js
 |   |   |   |   |   vfile.js
 |   |   |   |   |   
@@ -3769,7 +3783,9 @@ C:.
 |   |   |   |       directives.js
 |   |   |   |       flags.js
 |   |   |   |       logging.js
+|   |   |   |       naming.js
 |   |   |   |       option-utils.js
+|   |   |   |       relative-module-resolver.js
 |   |   |   |       runtime-info.js
 |   |   |   |       serialization.js
 |   |   |   |       severity.js
@@ -4706,7 +4722,7 @@ C:.
 |   |   |   package.json
 |   |   |   readme.md
 |   |   |   
-|   |   \---src
+|   |   \---dist
 |   |           index.d.ts
 |   |           index.js
 |   |           
@@ -8755,63 +8771,6 @@ C:.
 |   |               nanoid
 |   |               nanoid.cmd
 |   |               
-|   +---postcss-import
-|   |   |   index.js
-|   |   |   LICENSE
-|   |   |   package.json
-|   |   |   README.md
-|   |   |   
-|   |   +---lib
-|   |   |       assign-layer-names.js
-|   |   |       data-url.js
-|   |   |       join-layer.js
-|   |   |       join-media.js
-|   |   |       load-content.js
-|   |   |       parse-statements.js
-|   |   |       process-content.js
-|   |   |       resolve-id.js
-|   |   |       
-|   |   \---node_modules
-|   |       \---.bin
-|   |               resolve
-|   |               resolve.cmd
-|   |               
-|   +---postcss-js
-|   |       async.js
-|   |       index.js
-|   |       index.mjs
-|   |       LICENSE
-|   |       objectifier.js
-|   |       package.json
-|   |       parser.js
-|   |       process-result.js
-|   |       README.md
-|   |       sync.js
-|   |       
-|   +---postcss-load-config
-|   |   |   LICENSE
-|   |   |   package.json
-|   |   |   README.md
-|   |   |   
-|   |   +---node_modules
-|   |   |   \---.bin
-|   |   |           yaml
-|   |   |           yaml.cmd
-|   |   |           
-|   |   \---src
-|   |           index.d.ts
-|   |           index.js
-|   |           options.js
-|   |           plugins.js
-|   |           req.js
-|   |           
-|   +---postcss-nested
-|   |       index.d.ts
-|   |       index.js
-|   |       LICENSE
-|   |       package.json
-|   |       README.md
-|   |       
 |   +---postcss-selector-parser
 |   |   |   API.md
 |   |   |   CHANGELOG.md
@@ -9233,49 +9192,40 @@ C:.
 |   |   |   package.json
 |   |   |   README.md
 |   |   |   
-|   |   +---dist
-|   |   |   |   getLogFilter.d.ts
-|   |   |   |   getLogFilter.js
-|   |   |   |   loadConfigFile.d.ts
-|   |   |   |   loadConfigFile.js
-|   |   |   |   native.js
-|   |   |   |   parseAst.d.ts
-|   |   |   |   parseAst.js
-|   |   |   |   rollup.d.ts
-|   |   |   |   rollup.js
-|   |   |   |   
-|   |   |   +---bin
-|   |   |   |       rollup
-|   |   |   |       
-|   |   |   +---es
-|   |   |   |   |   getLogFilter.js
-|   |   |   |   |   package.json
-|   |   |   |   |   parseAst.js
-|   |   |   |   |   rollup.js
-|   |   |   |   |   
-|   |   |   |   \---shared
-|   |   |   |           node-entry.js
-|   |   |   |           parseAst.js
-|   |   |   |           watch.js
-|   |   |   |           
-|   |   |   \---shared
-|   |   |           fsevents-importer.js
-|   |   |           index.js
-|   |   |           loadConfigFile.js
-|   |   |           parseAst.js
-|   |   |           rollup.js
-|   |   |           watch-cli.js
-|   |   |           watch.js
-|   |   |           
-|   |   \---node_modules
-|   |       \---@types
-|   |           \---estree
-|   |                   flow.d.ts
-|   |                   index.d.ts
-|   |                   LICENSE
-|   |                   package.json
-|   |                   README.md
-|   |                   
+|   |   \---dist
+|   |       |   getLogFilter.d.ts
+|   |       |   getLogFilter.js
+|   |       |   loadConfigFile.d.ts
+|   |       |   loadConfigFile.js
+|   |       |   native.js
+|   |       |   parseAst.d.ts
+|   |       |   parseAst.js
+|   |       |   rollup.d.ts
+|   |       |   rollup.js
+|   |       |   
+|   |       +---bin
+|   |       |       rollup
+|   |       |       
+|   |       +---es
+|   |       |   |   getLogFilter.js
+|   |       |   |   package.json
+|   |       |   |   parseAst.js
+|   |       |   |   rollup.js
+|   |       |   |   
+|   |       |   \---shared
+|   |       |           node-entry.js
+|   |       |           parseAst.js
+|   |       |           watch.js
+|   |       |           
+|   |       \---shared
+|   |               fsevents-importer.js
+|   |               index.js
+|   |               loadConfigFile.js
+|   |               parseAst.js
+|   |               rollup.js
+|   |               watch-cli.js
+|   |               watch.js
+|   |               
 |   +---run-parallel
 |   |       index.js
 |   |       LICENSE
@@ -9935,7 +9885,137 @@ C:.
 |   |   |   |       sucrase-node.cmd
 |   |   |   |       sucrase.cmd
 |   |   |   |       
-|   |   |   \---glob-parent
+|   |   |   +---glob-parent
+|   |   |   |       index.js
+|   |   |   |       LICENSE
+|   |   |   |       package.json
+|   |   |   |       README.md
+|   |   |   |       
+|   |   |   +---postcss
+|   |   |   |   |   LICENSE
+|   |   |   |   |   package.json
+|   |   |   |   |   README.md
+|   |   |   |   |   
+|   |   |   |   +---lib
+|   |   |   |   |       at-rule.d.ts
+|   |   |   |   |       at-rule.js
+|   |   |   |   |       comment.d.ts
+|   |   |   |   |       comment.js
+|   |   |   |   |       container.d.ts
+|   |   |   |   |       container.js
+|   |   |   |   |       css-syntax-error.d.ts
+|   |   |   |   |       css-syntax-error.js
+|   |   |   |   |       declaration.d.ts
+|   |   |   |   |       declaration.js
+|   |   |   |   |       document.d.ts
+|   |   |   |   |       document.js
+|   |   |   |   |       fromJSON.d.ts
+|   |   |   |   |       fromJSON.js
+|   |   |   |   |       input.d.ts
+|   |   |   |   |       input.js
+|   |   |   |   |       lazy-result.d.ts
+|   |   |   |   |       lazy-result.js
+|   |   |   |   |       list.d.ts
+|   |   |   |   |       list.js
+|   |   |   |   |       map-generator.js
+|   |   |   |   |       no-work-result.d.ts
+|   |   |   |   |       no-work-result.js
+|   |   |   |   |       node.d.ts
+|   |   |   |   |       node.js
+|   |   |   |   |       parse.d.ts
+|   |   |   |   |       parse.js
+|   |   |   |   |       parser.js
+|   |   |   |   |       postcss.d.mts
+|   |   |   |   |       postcss.d.ts
+|   |   |   |   |       postcss.js
+|   |   |   |   |       postcss.mjs
+|   |   |   |   |       previous-map.d.ts
+|   |   |   |   |       previous-map.js
+|   |   |   |   |       processor.d.ts
+|   |   |   |   |       processor.js
+|   |   |   |   |       result.d.ts
+|   |   |   |   |       result.js
+|   |   |   |   |       root.d.ts
+|   |   |   |   |       root.js
+|   |   |   |   |       rule.d.ts
+|   |   |   |   |       rule.js
+|   |   |   |   |       stringifier.d.ts
+|   |   |   |   |       stringifier.js
+|   |   |   |   |       stringify.d.ts
+|   |   |   |   |       stringify.js
+|   |   |   |   |       symbols.js
+|   |   |   |   |       terminal-highlight.js
+|   |   |   |   |       tokenize.js
+|   |   |   |   |       warn-once.js
+|   |   |   |   |       warning.d.ts
+|   |   |   |   |       warning.js
+|   |   |   |   |       
+|   |   |   |   \---node_modules
+|   |   |   |       \---.bin
+|   |   |   |               nanoid
+|   |   |   |               nanoid.cmd
+|   |   |   |               
+|   |   |   +---postcss-import
+|   |   |   |   |   index.js
+|   |   |   |   |   LICENSE
+|   |   |   |   |   package.json
+|   |   |   |   |   README.md
+|   |   |   |   |   
+|   |   |   |   +---lib
+|   |   |   |   |       assign-layer-names.js
+|   |   |   |   |       data-url.js
+|   |   |   |   |       join-layer.js
+|   |   |   |   |       join-media.js
+|   |   |   |   |       load-content.js
+|   |   |   |   |       parse-statements.js
+|   |   |   |   |       process-content.js
+|   |   |   |   |       resolve-id.js
+|   |   |   |   |       
+|   |   |   |   \---node_modules
+|   |   |   |       \---.bin
+|   |   |   |               resolve
+|   |   |   |               resolve.cmd
+|   |   |   |               
+|   |   |   +---postcss-js
+|   |   |   |       async.js
+|   |   |   |       index.js
+|   |   |   |       index.mjs
+|   |   |   |       LICENSE
+|   |   |   |       objectifier.js
+|   |   |   |       package.json
+|   |   |   |       parser.js
+|   |   |   |       process-result.js
+|   |   |   |       README.md
+|   |   |   |       sync.js
+|   |   |   |       
+|   |   |   +---postcss-load-config
+|   |   |   |   |   LICENSE
+|   |   |   |   |   package.json
+|   |   |   |   |   README.md
+|   |   |   |   |   
+|   |   |   |   +---node_modules
+|   |   |   |   |   +---.bin
+|   |   |   |   |   |       yaml
+|   |   |   |   |   |       yaml.cmd
+|   |   |   |   |   |       
+|   |   |   |   |   \---lilconfig
+|   |   |   |   |       |   LICENSE
+|   |   |   |   |       |   package.json
+|   |   |   |   |       |   readme.md
+|   |   |   |   |       |   
+|   |   |   |   |       \---src
+|   |   |   |   |               index.d.ts
+|   |   |   |   |               index.js
+|   |   |   |   |               
+|   |   |   |   \---src
+|   |   |   |           index.d.ts
+|   |   |   |           index.js
+|   |   |   |           options.js
+|   |   |   |           plugins.js
+|   |   |   |           req.js
+|   |   |   |           
+|   |   |   \---postcss-nested
+|   |   |           index.d.ts
 |   |   |           index.js
 |   |   |           LICENSE
 |   |   |           package.json
@@ -10424,20 +10504,84 @@ C:.
 |   |   |   |               index.d.ts
 |   |   |   |               index.js
 |   |   |   |               
-|   |   |   \---picomatch
-|   |   |       |   index.js
+|   |   |   +---picomatch
+|   |   |   |   |   index.js
+|   |   |   |   |   LICENSE
+|   |   |   |   |   package.json
+|   |   |   |   |   posix.js
+|   |   |   |   |   README.md
+|   |   |   |   |   
+|   |   |   |   \---lib
+|   |   |   |           constants.js
+|   |   |   |           parse.js
+|   |   |   |           picomatch.js
+|   |   |   |           scan.js
+|   |   |   |           utils.js
+|   |   |   |           
+|   |   |   \---postcss
 |   |   |       |   LICENSE
 |   |   |       |   package.json
-|   |   |       |   posix.js
 |   |   |       |   README.md
 |   |   |       |   
-|   |   |       \---lib
-|   |   |               constants.js
-|   |   |               parse.js
-|   |   |               picomatch.js
-|   |   |               scan.js
-|   |   |               utils.js
-|   |   |               
+|   |   |       +---lib
+|   |   |       |       at-rule.d.ts
+|   |   |       |       at-rule.js
+|   |   |       |       comment.d.ts
+|   |   |       |       comment.js
+|   |   |       |       container.d.ts
+|   |   |       |       container.js
+|   |   |       |       css-syntax-error.d.ts
+|   |   |       |       css-syntax-error.js
+|   |   |       |       declaration.d.ts
+|   |   |       |       declaration.js
+|   |   |       |       document.d.ts
+|   |   |       |       document.js
+|   |   |       |       fromJSON.d.ts
+|   |   |       |       fromJSON.js
+|   |   |       |       input.d.ts
+|   |   |       |       input.js
+|   |   |       |       lazy-result.d.ts
+|   |   |       |       lazy-result.js
+|   |   |       |       list.d.ts
+|   |   |       |       list.js
+|   |   |       |       map-generator.js
+|   |   |       |       no-work-result.d.ts
+|   |   |       |       no-work-result.js
+|   |   |       |       node.d.ts
+|   |   |       |       node.js
+|   |   |       |       parse.d.ts
+|   |   |       |       parse.js
+|   |   |       |       parser.js
+|   |   |       |       postcss.d.mts
+|   |   |       |       postcss.d.ts
+|   |   |       |       postcss.js
+|   |   |       |       postcss.mjs
+|   |   |       |       previous-map.d.ts
+|   |   |       |       previous-map.js
+|   |   |       |       processor.d.ts
+|   |   |       |       processor.js
+|   |   |       |       result.d.ts
+|   |   |       |       result.js
+|   |   |       |       root.d.ts
+|   |   |       |       root.js
+|   |   |       |       rule.d.ts
+|   |   |       |       rule.js
+|   |   |       |       stringifier.d.ts
+|   |   |       |       stringifier.js
+|   |   |       |       stringify.d.ts
+|   |   |       |       stringify.js
+|   |   |       |       symbols.js
+|   |   |       |       terminal-highlight.js
+|   |   |       |       tokenize.js
+|   |   |       |       warn-once.js
+|   |   |       |       warning.d.ts
+|   |   |       |       warning.js
+|   |   |       |       
+|   |   |       \---node_modules
+|   |   |           \---.bin
+|   |   |                   nanoid
+|   |   |                   nanoid.cmd
+|   |   |                   
 |   |   \---types
 |   |       |   customEvent.d.ts
 |   |       |   hmrPayload.d.ts
@@ -10807,10 +10951,6 @@ C:.
 |           package.json
 |           readme.md
 |           
-+---Nouveaute
-|       index.js
-|       Nouveaute.jsx
-|       
 +---public
 |       vite.svg
 |       
@@ -10820,6 +10960,8 @@ C:.
     |   
     +---assets
     |       react.svg
+    |       undraw_hot-air-balloon_6knx.svg
+    |       undraw_post_gs8w.svg
     |       
     +---components
     |   +---common
@@ -10863,16 +11005,23 @@ C:.
     |   |   |       QuickActions.jsx
     |   |   |       
     |   |   \---Sidebar
-    |   |           index.js
-    |   |           Sidebar.jsx
-    |   |           SidebarItem.jsx
-    |   |           TeamSection.jsx
-    |   |           
+    |   |       |   index.js
+    |   |       |   Sidebar.jsx
+    |   |       |   SidebarItem.jsx
+    |   |       |   TeamSection.jsx
+    |   |       |   
+    |   |       \---RoleSection
+    |   |               index.js
+    |   |               RoleSection.jsx
+    |   |               
     |   \---ui
     |           avatar.jsx
     |           
     +---context
     |       CustomizerContext.jsx
+    |       FluxContext.jsx
+    |       RoleContext.jsx
+    |       TeamsContext.jsx
     |       ThemeContext.jsx
     |       
     +---lib
@@ -10883,46 +11032,271 @@ C:.
     |   |       DashboardPage.jsx
     |   |       index.js
     |   |       
-    |   \---LibraryPage
+    |   +---EquipePage
+    |   |       EquipePage.jsx
+    |   |       index.js
+    |   |       
+    |   +---LibraryPage
+    |   |   |   index.js
+    |   |   |   LibraryPage.jsx
+    |   |   |   
+    |   |   \---components
+    |   |       +---Commentaire
+    |   |       |   |   CommentairePage.jsx
+    |   |       |   |   CommentModal.jsx
+    |   |       |   |   index.js
+    |   |       |   |   
+    |   |       |   \---hooks
+    |   |       |           useSharedComments.js
+    |   |       |           
+    |   |       +---Etiquettes
+    |   |       |   |   EtiquetteBadge.jsx
+    |   |       |   |   EtiquetteDetailPage.jsx
+    |   |       |   |   EtiquetteModal.jsx
+    |   |       |   |   EtiquetteSelector.jsx
+    |   |       |   |   EtiquettesPage.jsx
+    |   |       |   |   index.js
+    |   |       |   |   
+    |   |       |   \---hooks
+    |   |       |           useSharedEtiquettes.js
+    |   |       |           
+    |   |       +---FavorisPage
+    |   |       |   |   FavorisPage.jsx
+    |   |       |   |   index.js
+    |   |       |   |   
+    |   |       |   +---components
+    |   |       |   |       FavoriteCard.jsx
+    |   |       |   |       
+    |   |       |   \---hooks
+    |   |       |           useSharedFavorites.js
+    |   |       |           
+    |   |       +---NouveautesPage
+    |   |       |   |   ArticleCard.jsx
+    |   |       |   |   ArticleModal.jsx
+    |   |       |   |   ArticlesGrid.jsx
+    |   |       |   |   ArticleViews.jsx
+    |   |       |   |   AutoMarkAsRead.jsx
+    |   |       |   |   FeedsSidebar.jsx
+    |   |       |   |   FiltersSection.jsx
+    |   |       |   |   index.js
+    |   |       |   |   NouveautesPage.jsx
+    |   |       |   |   SearchBar.jsx
+    |   |       |   |   SecureImage.jsx
+    |   |       |   |   SmartImage.jsx
+    |   |       |   |   StatsCards.jsx
+    |   |       |   |   ViewSelector.jsx
+    |   |       |   |   
+    |   |       |   +---hooks
+    |   |       |   |       useArticles.js
+    |   |       |   |       useFeeds.js
+    |   |       |   |       useFilters.js
+    |   |       |   |       useModal.js
+    |   |       |   |       
+    |   |       |   \---modal
+    |   |       |           ModalContent.jsx
+    |   |       |           ModalHeader.jsx
+    |   |       |           ModalToolbar.jsx
+    |   |       |           ShareButtons.jsx
+    |   |       |           
+    |   |       \---RecherchePage
+    |   |               index.js
+    |   |               RecherchePage.jsx
+    |   |               
+    |   +---PricingPage
+    |   |       index.js
+    |   |       PricingPage.jsx
+    |   |       
+    |   +---RolePage
+    |   |   |   index.js
+    |   |   |   RoleDetailPage.jsx
+    |   |   |   RoleManagementPage.jsx
+    |   |   |   RolePage.jsx
+    |   |   |   
+    |   |   \---modal
+    |   |           RoleModal.jsx
+    |   |           TeamModal.jsx
+    |   |           
+    |   +---RolesEquipePage
+    |   |       index.js
+    |   |       RolesEquipePage.jsx
+    |   |       
+    |   +---SettingsPage
+    |   |   |   SettingsPage.jsx
+    |   |   |   TasksManagement.jsx
+    |   |   |   
+    |   |   \---axes
+    |   |       |   AxesManagement.jsx
+    |   |       |   index.js
+    |   |       |   
+    |   |       +---components
+    |   |       |       AxisCard.jsx
+    |   |       |       AxisDetailModal.jsx
+    |   |       |       AxisModal.jsx
+    |   |       |       IconSelector.jsx
+    |   |       |       ThemeSelector.jsx
+    |   |       |       
+    |   |       +---constants
+    |   |       |       pestelData.js
+    |   |       |       
+    |   |       \---hooks
+    |   |               useAxes.jsx
+    |   |               
+    |   \---SourcesPage
     |       |   index.js
-    |       |   LibraryPage.jsx
+    |       |   SourcesPage.jsx
     |       |   
     |       \---components
-    |           +---FavorisPage
-    |           |   |   FavorisPage.jsx
+    |           +---FluxSuivis
+    |           |       FluxSuivisPage.jsx
+    |           |       index.js
+    |           |       
+    |           +---GoogleNews
+    |           |   |   GoogleNewsPage.jsx
+    |           |   |   index.js
+    |           |   |   mockData.js
+    |           |   |   
+    |           |   +---components
+    |           |   |       CategorySelector.jsx
+    |           |   |       EmptyState.jsx
+    |           |   |       FilterBar.jsx
+    |           |   |       index.js
+    |           |   |       LocationSelector.jsx
+    |           |   |       NewsCard.jsx
+    |           |   |       SearchForm.jsx
+    |           |   |       TrendingTopics.jsx
+    |           |   |       
+    |           |   +---constants
+    |           |   |       index.js
+    |           |   |       
+    |           |   +---hooks
+    |           |   |       index.js
+    |           |   |       useGoogleNews.js
+    |           |   |       useNewsActions.js
+    |           |   |       
+    |           |   \---utils
+    |           |           categoryUtils.js
+    |           |           formatters.js
+    |           |           locationUtils.js
+    |           |           
+    |           +---HashtagFlux
+    |           |   |   HashtagFluxPage.jsx
+    |           |   |   hashtagMockData.json
     |           |   |   index.js
     |           |   |   
     |           |   +---components
-    |           |   |       FavoriteCard.jsx
+    |           |   |       ArticleCard.jsx
+    |           |   |       ContentTypeSelector.jsx
+    |           |   |       EmptyState.jsx
+    |           |   |       FilterBar.jsx
+    |           |   |       HashtagSuggestion.jsx
+    |           |   |       index.js
+    |           |   |       SearchForm.jsx
     |           |   |       
-    |           |   \---hooks
-    |           |           useSharedFavorites.js
+    |           |   +---constants
+    |           |   |       index.js
+    |           |   |       
+    |           |   +---hooks
+    |           |   |       index.js
+    |           |   |       useArticleActions.js
+    |           |   |       useHashtagSearch.js
+    |           |   |       
+    |           |   \---utils
+    |           |           categoryUtils.js
+    |           |           contentTypeUtils.js
+    |           |           formatters.js
     |           |           
-    |           \---NouveautesPage
-    |               |   ArticleCard.jsx
-    |               |   ArticleModal.jsx
-    |               |   ArticlesGrid.jsx
-    |               |   ArticleViews.jsx
-    |               |   AutoMarkAsRead.jsx
-    |               |   FeedsSidebar.jsx
-    |               |   FiltersSection.jsx
+    |           +---MotcleFlux
+    |           |   |   index.js
+    |           |   |   mockData.js
+    |           |   |   MotcleFluxPage.jsx
+    |           |   |   
+    |           |   +---components
+    |           |   |       ArticleCard.jsx
+    |           |   |       ContentTypeSelector.jsx
+    |           |   |       EmptyState.jsx
+    |           |   |       FilterBar.jsx
+    |           |   |       index.js
+    |           |   |       KeywordSuggestion.jsx
+    |           |   |       SearchForm.jsx
+    |           |   |       
+    |           |   +---constants
+    |           |   |       index.js
+    |           |   |       
+    |           |   +---hooks
+    |           |   |       index.js
+    |           |   |       useArticleActions.js
+    |           |   |       useKeywordSearch.js
+    |           |   |       
+    |           |   \---utils
+    |           |           categoryUtils.js
+    |           |           formatters.js
+    |           |           
+    |           +---Newsletter
+    |           |   |   index.js
+    |           |   |   mockData.js
+    |           |   |   NewsletterPage.jsx
+    |           |   |   
+    |           |   +---components
+    |           |   |       AddNewsletterModal.jsx
+    |           |   |       CategorySelector.jsx
+    |           |   |       CreateCollectionModal.jsx
+    |           |   |       EmptyState.jsx
+    |           |   |       FilterBar.jsx
+    |           |   |       FrequencySelector.jsx
+    |           |   |       index.js
+    |           |   |       ManageCollectionModal.jsx
+    |           |   |       NewsletterCard.jsx
+    |           |   |       NewsletterDetailPage.jsx
+    |           |   |       NewsletterList.jsx
+    |           |   |       NewsletterReader.jsx
+    |           |   |       SearchForm.jsx
+    |           |   |       StatsSection.jsx
+    |           |   |       SubscriptionModal.jsx
+    |           |   |       
+    |           |   +---constants
+    |           |   |       index.js
+    |           |   |       
+    |           |   +---hooks
+    |           |   |       index.js
+    |           |   |       useNewsletterManagement.js
+    |           |   |       useNewsletterSearch.js
+    |           |   |       
+    |           |   \---utils
+    |           |           categoryUtils.js
+    |           |           formatters.js
+    |           |           index.js
+    |           |           
+    |           +---SuivreFlux
+    |           |       index.js
+    |           |       SuivreFluxPage.jsx
+    |           |       
+    |           \---WebScraper
     |               |   index.js
-    |               |   NouveautesPage.jsx
-    |               |   SearchBar.jsx
-    |               |   StatsCards.jsx
-    |               |   ViewSelector.jsx
+    |               |   mockData.js
+    |               |   WebScraperPage.jsx
     |               |   
-    |               +---hooks
-    |               |       useArticles.js
-    |               |       useFeeds.js
-    |               |       useFilters.js
-    |               |       useModal.js
+    |               +---components
+    |               |       ArticleCard.jsx
+    |               |       EmptyState.jsx
+    |               |       FilterBar.jsx
+    |               |       index.js
+    |               |       PopularWebsites.jsx
+    |               |       SearchForm.jsx
+    |               |       WebsiteTypeSelector.jsx
     |               |       
-    |               \---modal
-    |                       ModalContent.jsx
-    |                       ModalHeader.jsx
-    |                       ModalToolbar.jsx
-    |                       ShareButtons.jsx
+    |               +---constants
+    |               |       index.js
+    |               |       
+    |               +---hooks
+    |               |       index.js
+    |               |       useScrapingActions.js
+    |               |       useWebScraper.js
+    |               |       
+    |               \---utils
+    |                       formatters.js
+    |                       index.js
+    |                       scrapingUtils.js
+    |                       urlUtils.js
     |                       
     \---styles
             globals.css
